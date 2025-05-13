@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 using namespace std;
 
 /* -----------------------------------------------------------
@@ -156,7 +156,17 @@ NO* girarDireita(NO* y) {
    // Passo 5: Retorne o novo nó raiz ('x').  
 
 	// provisoriamente retorna o ponteiro passado como parâmetro
-	return y; 
+	NO* x = y->esq;
+ 
+    y->esq = x->dir;
+ 
+    x->dir = y;
+ 
+    y->altura = maior(alturaNo(y->esq), alturaNo(y->dir)) + 1;
+    x->altura = maior(alturaNo(x->esq), alturaNo(x->dir)) + 1;
+ 
+ 
+	return x; 
 }  
 
 NO* girarEsquerda(NO* x) {  
@@ -176,7 +186,17 @@ NO* girarEsquerda(NO* x) {
 
 
     // provisoriamente retorna o ponteiro passado como parâmetro
-    return x; 
+    NO* y = x->dir;
+ 
+    x->dir = y->esq;
+ 
+    y->esq = x;
+ 
+    x->altura = maior(alturaNo(x->esq), alturaNo(x->dir)) + 1;
+    y->altura = maior(alturaNo(y->esq), alturaNo(y->dir)) + 1;
+ 
+ 
+    return y; 
 }
 
 NO* insereArvore(NO* no, int valor) {
